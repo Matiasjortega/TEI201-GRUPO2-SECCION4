@@ -1,8 +1,8 @@
 ### Información del Equipo
 - **Integrantes:**
-  - Nombre 1 - Rol 1
-  - Nombre 2 - Rol 2
-  - Nombre 3 - Rol 3
+  - Guillermo Cid
+  - Jorge Molina
+  - Matías Orteha
   - Nombre 4 - Rol 4
   
 - **ODS Seleccionado:** [Número y nombre]
