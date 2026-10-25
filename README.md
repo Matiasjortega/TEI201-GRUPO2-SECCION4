@@ -3,18 +3,26 @@
   - Guillermo Cid
   - Jorge Molina
   - Matías Orteha
-  - Nombre 4 - Rol 4
+  - Guillermo Cid
   
-- **ODS Seleccionado:** [Número y nombre]
-- **Problema a resolver:** [Descripción breve]
+- **ODS Seleccionado:** ODS 3: Salud y Bienestar, ODS 11: Ciudades y Comunidades Sostenibles
+- **Problema a resolver:** Fugas de gas 
+presentes en hogares que pueden 
+provocar problemas graves de salud hasta 
+incluso la muerte
 
 ### Descripción del Proyecto
-[Breve descripción de la solución IoT propuesta]
+Alerta tanto visual como sonora que 
+al degectar fugas de gas emita una luz roja, 
+emita un ruido de alerta y envie un SMS al 
+usuario para que pueda detectar la fuga 
+a tiempo y pueda solucionar el problema 
+sin efectos graves.
 
 ### Estado del Proyecto
-- **Versión actual:** v3.0
-- **Última actualización:** [Fecha]
-- **Estado:** Prototipo final
+- **Versión actual:** v1
+- **Última actualización:** 25/10/2026
+- **Estado:** Prototipo inicial
 
 ---
 
