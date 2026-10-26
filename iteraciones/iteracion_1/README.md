@@ -2,7 +2,7 @@
 
 ## Información General
 
-**Fecha:** [XX/XX/2025]  
+**Fecha:** [25/10/2025]  
 **Versión:** v1.0  
 **Estado:** Prototipo alpha - Prueba de concepto  
 **Avance asociado:** Planificación inicial / Avance #1
@@ -11,30 +11,31 @@
 
 ## Descripción
 
-Primera versión del prototipo, enfocada en validar la factibilidad técnica del concepto.
+Primera versión del prototipo, enfocada en validar el funcionamiento del sistema de detección de fugas de gas mediante un sensor MQ-6.
 
 **Objetivo de esta iteración:**
-- Probar conexión de sensores básicos
-- Validar comunicación con microcontrolador
-- Demostrar concepto de actuación
-- Circuito básico en protoboard
+- Validar la lectura del sensor MQ-6
+- Calibrar el sensor de detección de gas 
+- Visualizar el prototipo de forma fisica
 
 ---
 
 ## Componentes Utilizados
 
 ### Hardware
-- Microcontrolador: [Modelo]
+- Microcontrolador: ATmega328P 
 - Sensores:
-  - [Sensor 1]
-  - [Sensor 2]
+  - MQ-6
 - Actuadores:
-  - [Actuador 1]
-- Otros: [Lista]
-
+  - Luz led
+- Otros: 
+  - Protoboard
+  - Cable USB tipo B
+  - Baterias
+  - Cables Dupont
+  
 ### Software
-- IDE: Arduino IDE
-- Librerías: [Lista]
+- IDE: Arduino IDE 2.3.6
 - Versión código: v1.0
 
 ---
@@ -42,42 +43,38 @@ Primera versión del prototipo, enfocada en validar la factibilidad técnica del
 ## Fotos del Prototipo
 
 Incluir en esta carpeta:
-- `v1_circuito_protoboard.jpg`
-- `v1_vista_general.jpg`
-- `v1_detalle_conexiones.jpg`
+- `
 
 ---
 
 ## Resultados de Testing Inicial
 
 ### Funcionalidad Lograda
-✅ [Función 1]  
-✅ [Función 2]  
-❌ [Función 3 - no funcionó]
-
+✅ Lectura del sensor de gas 
+✅ calibración del sensor para detectar gas en una escala mas pequeña
+❌ Al detectar gas que el usuario reciba un SMS
+❌ Prototipado 3D completo
 ### Problemas Identificados
 
 1. **Problema 1:**
-   - Descripción: [Detalles]
-   - Causa probable: [Análisis]
-   - Solución propuesta: [Plan]
+   - Descripción: Mensaje SMS al detectar gas
+   - Causa probable: No contamos con las herramientas para el chip de SMS]
+   - Solución propuesta: Conseguir el adaptador y adaptar el código para que funciona
 
 2. **Problema 2:**
-   - Descripción: [Detalles]
-   - Causa probable: [Análisis]
-   - Solución propuesta: [Plan]
+   - Descripción: Prototipado 3D completo
+   - Causa probable: Falta de conocimiento en el uso de fusion 360
+   - Solución propuesta: Profundizar mas en fusion 360 y mejorar el modelo
 
 ---
 
 ## Aprendizajes
 
 ### Técnicos
-- [Aprendizaje 1]
-- [Aprendizaje 2]
-
+- Calibrar de forma correcta el arduino 
+- Calibrar correctamente el sensor MQ-6
 ### De Diseño
-- [Aprendizaje 1]
-- [Aprendizaje 2]
+- Se requiere un orden para colocar los objetos dentro del modelo
 
 ---
 
@@ -86,16 +83,14 @@ Incluir en esta carpeta:
 ### Mejoras Planificadas
 
 **Hardware:**
-- [ ] [Mejora 1]
-- [ ] [Mejora 2]
+-Mejorar la organizacion del circuito
 
 **Software:**
-- [ ] [Mejora 1]
-- [ ] [Mejora 2]
+- Implementar SMS
 
 **Diseño:**
-- [ ] Iniciar diseño de encapsulado
-- [ ] Mejorar ruteo de cables
+- Mejorar modelado 3D
+- Definir la distribucion de los componentes
 
 ---
 
