@@ -96,7 +96,5 @@ Incluir en esta carpeta:
 
 ## Archivos en esta Carpeta
 
-- `v1_codigo.ino` - Código de esta versión
-- `v1_esquema.png` - Esquema del circuito
-- `v1_fotos/` - Fotografías del prototipo
-- `v1_notas.txt` - Notas adicionales del equipo
+- `Imagen prototipo 3.jpeg`
+- `Codigo_V1`
