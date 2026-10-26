@@ -43,7 +43,7 @@ Primera versión del prototipo, enfocada en validar el funcionamiento del sistem
 ## Fotos del Prototipo
 
 Incluir en esta carpeta:
-- `
+- `Imagen prototipo 3.jpeg`
 
 ---
 
