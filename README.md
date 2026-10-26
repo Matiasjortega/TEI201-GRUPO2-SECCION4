@@ -57,22 +57,22 @@ sin efectos graves.
 
 ### Hardware ✓
 - [ ] Esquema del circuito (Fritzing/Wokwi)
-- [ ] BOM completo
-- [ ] Fotos de alta resolución
+- [✓] BOM completo (Dentro de la seccion hardware en la carpeta bom)
+- [✓] Fotos de alta resolución (Dentro de la seccion testing en la carpeta evidencias)
 
 ### Software ✓
-- [ ] Código comentado
+- [✓] Código comentado (Encontrado en la seccion de iteracion 1)
 - [ ] Librerías documentadas
 - [ ] Manual de instalación
 
 ### Diseño 3D ✓
-- [ ] Archivos Fusion 360 (.f3d) con TODOS los componentes
-- [ ] Renders de alta calidad (1+ ángulos)
-- [ ] Planos técnicos
+- [✓] Archivos Fusion 360 (.f3d) con TODOS los componentes (Encontrado en la seccion diseno_3D dentro de la carpeta fusion360)
+- [] Renders de alta calidad (1+ ángulos)
+- [] Planos técnicos 
 
 ### Testing ✓
 - [ ] Reporte de testing con usuarios (mín. 5)
-- [ ] Evidencias fotográficas/videos
+- [✓] Evidencias fotográficas/videos (Encontrado en la seccion testing dentro de la carpeta evidencias)
 - [ ] Datos cuantitativos
 
 ### Documentación ✓
