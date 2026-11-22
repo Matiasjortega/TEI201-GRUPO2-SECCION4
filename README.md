@@ -2,8 +2,8 @@
 - **Integrantes:**
   - Guillermo Cid
   - Jorge Molina
-  - Matías Orteha
-  - Guillermo Cid
+  - Matías Ortega
+  - Antonia Rojas
   
 - **ODS Seleccionado:** ODS 3: Salud y Bienestar, ODS 11: Ciudades y Comunidades Sostenibles
 - **Problema a resolver:** Fugas de gas 
