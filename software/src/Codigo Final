@@ -1,0 +1,129 @@
+Codigo 4 (final)
+// Detector de gas MQ-6 + LED + buzzer KY-006
+// Version para Arduino UNO, SIN modulo SIM800L.
+// No requiere librerias externas.
+
+// -------------------- PINES --------------------
+const byte SENSOR_GAS = A0;
+const byte LED_ALERTA = 7;
+const byte BUZZER_ALERTA = 3;
+
+// -------------------- CONFIGURACION --------------------
+// Valores ADC de 0 a 1023. Deben calibrarse.
+const int UMBRAL_ACTIVACION = 160;
+const int UMBRAL_REARME = 140;
+
+// Tiempos
+const unsigned long INTERVALO_LECTURA = 1000UL;
+const unsigned long CALENTAMIENTO_INICIAL = 60000UL;
+const unsigned long TIEMPO_REARME = 30000UL;
+
+// Buzzer pasivo KY-006
+const unsigned int FRECUENCIA_BUZZER = 2000;
+
+// -------------------- ESTADO --------------------
+bool alarmaActiva = false;
+bool contandoNormal = false;
+bool sistemaListo = false;
+
+unsigned long inicioCalentamiento = 0;
+unsigned long ultimaLectura = 0;
+unsigned long inicioNormal = 0;
+
+// -------------------- FUNCIONES --------------------
+void activarAlarma() {
+  if (!alarmaActiva) {
+    alarmaActiva = true;
+    contandoNormal = false;
+
+    digitalWrite(LED_ALERTA, HIGH);
+    tone(BUZZER_ALERTA, FRECUENCIA_BUZZER);
+
+    Serial.println(F("ALERTA: posible presencia de gas."));
+    Serial.println(F("LED encendido y buzzer activado."));
+  }
+}
+
+void desactivarAlarma() {
+  alarmaActiva = false;
+  contandoNormal = false;
+
+  digitalWrite(LED_ALERTA, LOW);
+  noTone(BUZZER_ALERTA);
+
+  Serial.println(F("Lectura normal durante 30 segundos."));
+  Serial.println(F("Sistema rearmado. LED y buzzer apagados."));
+}
+
+void setup() {
+  pinMode(LED_ALERTA, OUTPUT);
+  pinMode(BUZZER_ALERTA, OUTPUT);
+  pinMode(SENSOR_GAS, INPUT);
+
+  digitalWrite(LED_ALERTA, LOW);
+  noTone(BUZZER_ALERTA);
+
+  Serial.begin(9600);
+
+  inicioCalentamiento = millis();
+  ultimaLectura = millis();
+
+  Serial.println(F("Detector MQ-6 + LED + KY-006"));
+  Serial.println(F("SIM800L desactivado: no envia SMS."));
+  Serial.println(F("Calentamiento inicial: 60 segundos."));
+  Serial.println(F("Lectura del sensor cada 1 segundo."));
+}
+
+void loop() {
+  const unsigned long ahora = millis();
+
+  // Leer el sensor cada 1 segundo.
+  if (ahora - ultimaLectura >= INTERVALO_LECTURA) {
+    ultimaLectura = ahora;
+
+    const int lectura = analogRead(SENSOR_GAS);
+
+    Serial.print(F("Lectura MQ-6: "));
+    Serial.println(lectura);
+
+    // Esperar el calentamiento inicial.
+    if (ahora - inicioCalentamiento < CALENTAMIENTO_INICIAL) {
+      Serial.println(F("Sensor en calentamiento; alarma no habilitada."));
+      return;
+    }
+
+    if (!sistemaListo) {
+      sistemaListo = true;
+      Serial.println(F("Calentamiento finalizado. Detector activo."));
+    }
+
+    // Activar alarma al alcanzar 160.
+    if (!alarmaActiva) {
+      if (lectura >= UMBRAL_ACTIVACION) {
+        activarAlarma();
+      }
+    }
+    else {
+      // Rearmar si la lectura es 140 o menos
+      // durante 30 segundos continuos.
+      if (lectura <= UMBRAL_REARME) {
+        if (!contandoNormal) {
+          contandoNormal = true;
+          inicioNormal = ahora;
+
+          Serial.println(F("Lectura normal: comenzando conteo."));
+        }
+
+        if (ahora - inicioNormal >= TIEMPO_REARME) {
+          desactivarAlarma();
+        }
+      }
+      else {
+        if (contandoNormal) {
+          Serial.println(F("Lectura sobre 140: conteo reiniciado."));
+        }
+
+        contandoNormal = false;
+      }
+    }
+  }
