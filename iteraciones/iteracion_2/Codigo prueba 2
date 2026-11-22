@@ -1,0 +1,62 @@
+CODIGO 2 (SIN SIM800L)
+
+
+
+
+const int SENSOR_GAS = A0;
+const int LED_ALERTA = 7;
+
+// Valores experimentales; deben ajustarse
+const int UMBRAL_ACTIVACION = 350;
+const int UMBRAL_REARME = 320;
+
+const unsigned long CALENTAMIENTO_INICIAL = 60000UL;
+
+bool alarmaActiva = false;
+
+void setup() {
+  pinMode(LED_ALERTA, OUTPUT);
+  digitalWrite(LED_ALERTA, LOW);
+
+  Serial.begin(9600);
+
+  Serial.println(F("Detector MQ-6 + LED"));
+  Serial.println(F("Espera inicial del sensor..."));
+
+  delay(CALENTAMIENTO_INICIAL);
+
+  Serial.println(F("Inicio de lecturas."));
+}
+
+void loop() {
+  int lectura = analogRead(SENSOR_GAS);
+
+  Serial.print(F("Lectura MQ-6: "));
+  Serial.println(lectura);
+
+  if (!alarmaActiva &&
+      lectura >= UMBRAL_ACTIVACION) {
+
+    alarmaActiva = true;
+
+    Serial.println(
+      F("ALERTA: posible gas. LED encendido.")
+    );
+
+  } else if (alarmaActiva &&
+             lectura <= UMBRAL_REARME) {
+
+    alarmaActiva = false;
+
+    Serial.println(
+      F("Lectura bajo el umbral de rearme. LED apagado.")
+    );
+  }
+
+  digitalWrite(
+    LED_ALERTA,
+    alarmaActiva ? HIGH : LOW
+  );
+
+  delay(500);
+}
