@@ -20,9 +20,9 @@ a tiempo y pueda solucionar el problema
 sin efectos graves.
 
 ### Estado del Proyecto
-- **Versión actual:** v1
-- **Última actualización:** 25/10/2026
-- **Estado:** Prototipo inicial
+- **Versión actual:** v3
+- **Última actualización:** 22/11/2026 a las 23:40 hrs
+- **Estado:** Prototipo final
 
 ---
 
@@ -56,28 +56,28 @@ sin efectos graves.
 ##  Checklist de Entrega
 
 ### Hardware ✓
-- [ ] Esquema del circuito (Fritzing/Wokwi)
+- [✓] Esquema del circuito (Fritzing/Wokwi)
 - [✓] BOM completo (Dentro de la seccion hardware en la carpeta bom)
 - [✓] Fotos de alta resolución (Dentro de la seccion testing en la carpeta evidencias)
 
 ### Software ✓
 - [✓] Código comentado (Encontrado en la seccion de iteracion 1)
-- [ ] Librerías documentadas
-- [ ] Manual de instalación
+- [✓]Librerías documentadas
+- [✓] Manual de instalación
 
 ### Diseño 3D ✓
 - [✓] Archivos Fusion 360 (.f3d) con TODOS los componentes (Encontrado en la seccion diseno_3D dentro de la carpeta fusion360)
-- [] Renders de alta calidad (1+ ángulos)
-- [] Planos técnicos 
+- [✓] Renders de alta calidad (1+ ángulos)
+- [✓] Planos técnicos 
 
 ### Testing ✓
-- [ ] Reporte de testing con usuarios (mín. 5)
+- [✓] Reporte de testing con usuarios (mín. 5)
 - [✓] Evidencias fotográficas/videos (Encontrado en la seccion testing dentro de la carpeta evidencias)
-- [ ] Datos cuantitativos
+- [✓]Datos cuantitativos
 
 ### Documentación ✓
-- [ ] Reporte final (máx. 15 páginas)
-- [ ] Presentación (10 min)
+- [✓]Reporte final (máx. 15 páginas)
+- [✓]Presentación (10 min)
 
 ---
 
