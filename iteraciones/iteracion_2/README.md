@@ -2,7 +2,7 @@
 
 ## Información General
 
-**Fecha:** ['5/11/2026]  
+**Fecha:** [5/11/2026]  
 **Versión:** v2.0  
 **Estado:** Prototipo funcional mejorado  
 **Avance asociado:** Avance #2
