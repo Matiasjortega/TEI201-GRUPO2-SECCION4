@@ -4,6 +4,8 @@
 
 ### Diagramas de Flujo
 Incluir diagramas de las funciones principales del sistema.
+<img width="906" height="670" alt="image" src="https://github.com/user-attachments/assets/d5bee422-f448-43e2-b124-da2be0650366" />
+
 
 **Formato:** PNG, PDF o draw.io
 
