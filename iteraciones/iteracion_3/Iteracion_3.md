@@ -30,7 +30,7 @@ Evolución del Diseño
 
 Versión 1 (Iteración 1) - Concepto Inicial
 
-Fecha: [Fecha correspondiente]
+Fecha: [25/10/2026] 
 
 Estado: Prototipo inicial.
 
