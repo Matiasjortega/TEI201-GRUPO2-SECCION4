@@ -19,33 +19,21 @@ Fotografías de alta resolución del prototipo ensamblado
 ## Instrucciones de Ensamble
 
 ### Componentes Principales
-1. [Componente 1] - Función
-2. [Componente 2] - Función
-3. [Componente 3] - Función
+1. [Componente 1] - Arduino UNO
+2. [Componente 2] - Sensor MQ-&
+3. [Componente 3] - Luz led
+4. [Componente 4] - Buzzer
 
 ### Pasos de Ensamblaje
-1. [Paso 1]
-2. [Paso 2]
-3. [Paso 3]
+1. conectar el Arduino UNO a las baterías
+2. Prender las baterias
+3. Esperar 30 segundos
+4. Usar el encendedor para dar gas al sensor MQ-6
+5. Esperar a que se activen la luz led y el buzzer
+6. Esperar a que se desactiven
+7. Apagar las baterías
+8. desconectar todo si se quiere (no es necesario)
 
 ### Precauciones
-- ⚠️ [Precaución 1]
-- ⚠️ [Precaución 2]
+- ⚠️ Cuidado con mover el sensor de forma brusca ya que este puede caerse
 
----
-
-## Especificaciones Técnicas
-
-**Alimentación:** [Voltaje y corriente]  
-**Consumo:** [Watts/mA]  
-**Dimensiones:** [mm x mm x mm]  
-**Peso:** [gramos]
-
----
-
-## Troubleshooting
-
-| Problema | Posible Causa | Solución |
-|----------|---------------|----------|
-| [Problema 1] | [Causa] | [Solución] |
-| [Problema 2] | [Causa] | [Solución] |
