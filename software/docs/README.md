@@ -16,7 +16,7 @@ es de 0 a 5V, con la relación logaritmica, esto aplicando desde 200 ppm hasta 1
 
 Paso 1: conectar la alimentación del Arduino UNO y verificar que el sensor MQ-6, el LED y el buzzer estén correctamente conectados.
 
-Paso 2: esperar 60 segundos para el calentamiento inicial del sensor. una vez finalizado este tiempo, el sistema comenzará a realizar mediciones automáticamente.
+Paso 2: esperar 30 segundos para el calentamiento inicial del sensor. una vez finalizado este tiempo, el sistema comenzará a realizar mediciones automáticamente.
 ---
 
 ## Troubleshooting
