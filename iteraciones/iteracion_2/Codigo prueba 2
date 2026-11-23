@@ -1,62 +1,355 @@
-CODIGO 2 (SIN SIM800L)
+Codigo 3 (con SIM800L)
+CODIGO 1.1 (NUEVO CODIGO CON SIM800L)
 
+#include <SoftwareSerial.h>
+#include <string.h>
 
+// SIM800L: SoftwareSerial(RX, TX)
+// SIM800L TXD -> Arduino D10
+// Arduino D11 -> SIM800L RXD (adaptacion de nivel)
+SoftwareSerial sim800(10, 11);
 
-
+// Pines del proyecto
 const int SENSOR_GAS = A0;
 const int LED_ALERTA = 7;
 
-// Valores experimentales; deben ajustarse
-const int UMBRAL_ACTIVACION = 350;
-const int UMBRAL_REARME = 320;
+// Arduino UNO/Nano clasico: buzzer en D3
+#if defined(__AVR_ATmega328P__)
+const int BUZZER_ALERTA = 3;
+#else
+const int BUZZER_ALERTA = 8;
+#endif
 
+// Numero telefonico
+const char NUMERO_TELEFONO[] = "+56912345678";
+
+// Umbrales del sensor
+const int UMBRAL_ACTIVACION = 160;
+const int UMBRAL_REARME = 140;
+
+// Tiempos
 const unsigned long CALENTAMIENTO_INICIAL = 60000UL;
+const unsigned long TIEMPO_REARME = 30000UL;
+const unsigned long INTERVALO_REINTENTO = 60000UL;
+const unsigned long INTERVALO_LECTURA_SENSOR = 1000UL;
+
+// Frecuencia del KY-006
+const unsigned int FRECUENCIA_BUZZER = 2000;
 
 bool alarmaActiva = false;
+bool contandoNormal = false;
+bool smsConfirmado = false;
+bool huboIntentoSMS = false;
 
-void setup() {
-  pinMode(LED_ALERTA, OUTPUT);
-  digitalWrite(LED_ALERTA, LOW);
+unsigned long inicioNormal = 0;
+unsigned long ultimoIntentoSMS = 0;
+unsigned long ultimaLecturaSensor = 0;
 
-  Serial.begin(9600);
 
-  Serial.println(F("Detector MQ-6 + LED"));
-  Serial.println(F("Espera inicial del sensor..."));
-
-  delay(CALENTAMIENTO_INICIAL);
-
-  Serial.println(F("Inicio de lecturas."));
+// Vaciar datos antiguos del SIM800L
+void vaciarEntradaSIM() {
+  while (sim800.available() > 0) {
+    (void)sim800.read();
+  }
 }
 
-void loop() {
-  int lectura = analogRead(SENSOR_GAS);
 
-  Serial.print(F("Lectura MQ-6: "));
-  Serial.println(lectura);
+// Esperar respuesta del SIM800L
+bool esperarRespuesta(const char* token,
+                      unsigned long timeoutMs) {
 
-  if (!alarmaActiva &&
-      lectura >= UMBRAL_ACTIVACION) {
+  char respuesta[120];
+  size_t usados = 0;
+  respuesta[0] = '\0';
+
+  const unsigned long inicio = millis();
+
+  while (millis() - inicio < timeoutMs) {
+
+    while (sim800.available() > 0) {
+
+      const char c = (char)sim800.read();
+      Serial.write(c);
+
+      if (usados < sizeof(respuesta) - 1) {
+        respuesta[usados++] = c;
+      } else {
+        memmove(respuesta, respuesta + 1,
+                sizeof(respuesta) - 2);
+
+        usados = sizeof(respuesta) - 2;
+        respuesta[usados++] = c;
+      }
+
+      respuesta[usados] = '\0';
+
+      if (strstr(respuesta, "ERROR") != NULL) {
+        return false;
+      }
+
+      if (strstr(respuesta, token) != NULL) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+
+// Enviar comando AT
+bool comandoOK(const char* comando,
+               unsigned long timeoutMs = 4000UL) {
+
+  vaciarEntradaSIM();
+  sim800.println(comando);
+
+  return esperarRespuesta("OK", timeoutMs);
+}
+
+
+// Enviar SMS
+bool enviarSMS() {
+
+  Serial.println(F("Preparando SMS..."));
+
+  if (!comandoOK("AT+CMGF=1", 5000UL)) {
+    Serial.println(F("Error configurando modo SMS."));
+    return false;
+  }
+
+  vaciarEntradaSIM();
+
+  sim800.print(F("AT+CMGS=\""));
+  sim800.print(NUMERO_TELEFONO);
+  sim800.println(F("\""));
+
+  if (!esperarRespuesta(">", 8000UL)) {
+    Serial.println(F("No se recibio el prompt del SMS."));
+    return false;
+  }
+
+  sim800.print(F(
+    "ALERTA: POSIBLE FUGA DE GAS. "
+    "El sensor MQ-6 supero el umbral configurado. "
+    "Verifique la situacion y actue con precaucion."
+  ));
+
+  sim800.write(26);
+
+  if (esperarRespuesta("+CMGS:", 30000UL)) {
+    Serial.println(F("SMS aceptado por la red."));
+    return true;
+  }
+
+  Serial.println(F("No se confirmo el envio del SMS."));
+  return false;
+}
+
+
+// Activar buzzer
+void iniciarBuzzer() {
+
+#if defined(__AVR_ATmega328P__)
+
+  // Generar 2000 Hz por hardware en D3
+  TCCR2A = 0;
+  TCCR2B = 0;
+  TCNT2 = 0;
+
+  OCR2A = 124;
+  OCR2B = 124;
+
+  TCCR2A = _BV(COM2B0) | _BV(WGM21);
+  TCCR2B = _BV(CS21) | _BV(CS20);
+
+#else
+
+  tone(BUZZER_ALERTA, FRECUENCIA_BUZZER);
+
+#endif
+}
+
+
+// Apagar buzzer
+void detenerBuzzer() {
+
+#if defined(__AVR_ATmega328P__)
+
+  TCCR2A &= ~(_BV(COM2B1) | _BV(COM2B0));
+  TCCR2B = 0;
+
+  digitalWrite(BUZZER_ALERTA, LOW);
+
+#else
+
+  noTone(BUZZER_ALERTA);
+  digitalWrite(BUZZER_ALERTA, LOW);
+
+#endif
+}
+
+
+// Activar alarma
+void activarAlarma() {
+
+  if (!alarmaActiva) {
 
     alarmaActiva = true;
+    smsConfirmado = false;
+    huboIntentoSMS = false;
+    contandoNormal = false;
+
+    digitalWrite(LED_ALERTA, HIGH);
+
+    iniciarBuzzer();
 
     Serial.println(
-      F("ALERTA: posible gas. LED encendido.")
+      F("ALERTA: posible presencia de gas.")
     );
+  }
+}
 
-  } else if (alarmaActiva &&
-             lectura <= UMBRAL_REARME) {
 
-    alarmaActiva = false;
+// Desactivar alarma
+void desactivarAlarma() {
 
+  alarmaActiva = false;
+  contandoNormal = false;
+  smsConfirmado = false;
+  huboIntentoSMS = false;
+
+  digitalWrite(LED_ALERTA, LOW);
+
+  detenerBuzzer();
+
+  Serial.println(
+    F("Lectura normal sostenida. Sistema rearmado.")
+  );
+}
+
+
+// Configuracion inicial
+void setup() {
+
+  pinMode(LED_ALERTA, OUTPUT);
+  pinMode(BUZZER_ALERTA, OUTPUT);
+
+  digitalWrite(LED_ALERTA, LOW);
+  detenerBuzzer();
+
+  Serial.begin(9600);
+  sim800.begin(9600);
+
+  Serial.println(
+    F("Detector MQ-6 + SIM800L + KY-006")
+  );
+
+  delay(3000);
+
+  bool responde = false;
+
+  // Comprobar comunicacion con SIM800L
+  for (byte i = 0; i < 5; i++) {
+
+    if (comandoOK("AT", 1500UL)) {
+      responde = true;
+      break;
+    }
+
+    delay(500);
+  }
+
+  if (responde) {
+    Serial.println(F("SIM800L responde."));
+  } else {
     Serial.println(
-      F("Lectura bajo el umbral de rearme. LED apagado.")
+      F("Sin respuesta del SIM800L. Revisar conexiones.")
     );
   }
 
-  digitalWrite(
-    LED_ALERTA,
-    alarmaActiva ? HIGH : LOW
+  // Calentamiento inicial
+  Serial.println(
+    F("Espera inicial del sensor MQ-6...")
   );
 
-  delay(500);
+  delay(CALENTAMIENTO_INICIAL);
+
+  Serial.println(
+    F("Inicio de lecturas. La espera no sustituye calibracion.")
+  );
+
+  ultimaLecturaSensor = millis();
 }
+
+
+// Programa principal
+void loop() {
+
+  const unsigned long ahora = millis();
+
+  // LECTURA DEL SENSOR CADA 1 SEGUNDO
+  if (ahora - ultimaLecturaSensor >=
+      INTERVALO_LECTURA_SENSOR) {
+
+    ultimaLecturaSensor = ahora;
+
+    const int lectura = analogRead(SENSOR_GAS);
+
+    Serial.print(F("Lectura MQ-6: "));
+    Serial.println(lectura);
+
+    // ACTIVACION DE ALARMA
+    if (lectura >= UMBRAL_ACTIVACION) {
+
+      contandoNormal = false;
+
+      activarAlarma();
+    }
+
+    if (alarmaActiva) {
+
+      digitalWrite(LED_ALERTA, HIGH);
+
+      // CONDICION DE REARME
+      if (lectura <= UMBRAL_REARME) {
+
+        if (!contandoNormal) {
+
+          contandoNormal = true;
+          inicioNormal = ahora;
+        }
+
+        if (ahora - inicioNormal >= TIEMPO_REARME) {
+
+          desactivarAlarma();
+        }
+
+      } else {
+
+        contandoNormal = false;
+      }
+
+    } else {
+
+      digitalWrite(LED_ALERTA, LOW);
+    }
+  }
+
+
+  // ENVIO Y REINTENTO DE SMS
+  if (alarmaActiva &&
+      !smsConfirmado &&
+      (!huboIntentoSMS ||
+       millis() - ultimoIntentoSMS >=
+       INTERVALO_REINTENTO)) {
+
+    huboIntentoSMS = true;
+
+    smsConfirmado = enviarSMS();
+
+    // Contar 60 segundos desde el final del intento
+    ultimoIntentoSMS = millis();
+  }
+}
+
