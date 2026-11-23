@@ -2,152 +2,184 @@
 
 ## Información General
 
-**Fecha:** [XX/XX/2025]  
+**Fecha:** ['5/11/2026]  
 **Versión:** v2.0  
 **Estado:** Prototipo funcional mejorado  
 **Avance asociado:** Avance #2
 
 ---
 
-## Descripción
+Descripción
 
-Segunda versión del prototipo, incorporando feedback de la iteración 1 y del Avance #1. Incluye mejoras significativas en funcionalidad y primeros pasos en diseño de encapsulado.
+En la segunda iteración del proyecto se buscó mejorar el prototipo inicial del detector de fugas de gas, incorporando nuevas ideas que permitieran aumentar su funcionalidad, seguridad y autonomía.
 
-**Objetivos de esta iteración:**
-- Corregir problemas identificados en v1
-- Agregar funcionalidades adicionales
-- Iniciar diseño 3D del encapsulado
-- Realizar primeras pruebas con usuarios
+A diferencia de la primera versión, que contemplaba principalmente un sistema de detección mediante Arduino y una alerta visual LED, en esta etapa se propuso integrar un módulo SIM800L para enviar notificaciones por SMS, un buzzer para generar alertas sonoras y una batería externa para permitir el funcionamiento independiente del computador.
 
----
+Además, se comenzó a considerar el diseño de un encapsulado que permitiera proteger y organizar los componentes electrónicos.
 
-## Cambios Respecto a v1
+Objetivos de esta iteración:
 
-### Hardware
-**Agregado:**
-- [Componente nuevo 1]
-- [Componente nuevo 2]
+Mejorar el funcionamiento del sistema de detección de gas.
 
-**Modificado:**
-- [Cambio 1] - Razón: [Justificación]
-- [Cambio 2] - Razón: [Justificación]
+Evaluar la incorporación de alertas mediante SMS y sonido.
 
-**Removido:**
-- [Componente removido] - Razón: [Justificación]
+Considerar una fuente de alimentación externa para aumentar la autonomía.
 
-### Software
-**Nuevas funcionalidades:**
-- [Feature 1]
-- [Feature 2]
+Iniciar la planificación del encapsulado del dispositivo.
 
-**Optimizaciones:**
-- [Optimización 1]
-- [Optimización 2]
+Identificar las mejoras necesarias para la versión final.
 
-**Bugs corregidos:**
-- [Bug 1 de v1]
-- [Bug 2 de v1]
+Cambios Respecto a v1
 
-### Diseño Mecánico
-- Primer diseño de encapsulado en Fusion 360
-- Prototipo impreso en 3D
-- Integración de componentes en carcasa
+Hardware
 
----
+Componentes propuestos:
 
-## Fotos del Prototipo v2
+Módulo SIM800L: permitiría enviar mensajes SMS para advertir sobre posibles fugas de gas.
 
-Incluir en esta carpeta:
-- `v2_prototipo_completo.jpg`
-- `v2_circuito_integrado.jpg`
-- `v2_encapsulado_inicial.jpg`
-- `v2_testing_usuario.jpg`
+Buzzer: permitiría emitir una alarma sonora al detectar una concentración peligrosa de gas.
 
----
+Batería externa: permitiría alimentar el Arduino sin mantenerlo conectado permanentemente al computador.
 
-## Resultados de Testing
+Modificaciones planteadas:
 
-### Funcionalidad Lograda
-✅ [Función 1]  
-✅ [Función 2]  
-✅ [Función 3]  
-⚠️ [Función 4 - parcial]
+Sistema de alertas: ampliar la alerta visual LED mediante la incorporación de notificaciones sonoras y remotas.
 
-### Feedback del Avance #2
+Sistema de alimentación: reemplazar la dependencia del computador por una fuente de energía independiente.
 
-**Comentarios del profesor/ayudante:**
-1. [Comentario 1]
-   - Acción: [Plan de mejora para v3]
+Componentes removidos:
 
-2. [Comentario 2]
-   - Acción: [Plan de mejora para v3]
+Durante esta iteración no se contempló eliminar componentes principales del prototipo inicial.
 
-### Testing con Usuarios (2-3 personas)
+Software
 
-**Resultados cuantitativos:**
-- Facilidad de uso promedio: [X/5]
-- Satisfacción promedio: [X/5]
+Nuevas funcionalidades propuestas:
 
-**Feedback cualitativo:**
-- Positivo: [Comentarios]
-- A mejorar: [Comentarios]
+Incorporar instrucciones para activar un buzzer cuando se detecte una fuga de gas.
 
----
+Evaluar la programación del módulo SIM800L para enviar mensajes de advertencia.
 
-## Problemas Pendientes
+Mantener el funcionamiento de la alerta visual LED.
 
-1. **Problema 1:**
-   - Descripción: [Detalles]
-   - Prioridad: Alta/Media/Baja
-   - Plan para v3: [Solución propuesta]
+Optimizaciones previstas:
 
-2. **Problema 2:**
-   - Descripción: [Detalles]
-   - Prioridad: Alta/Media/Baja
-   - Plan para v3: [Solución propuesta]
+Mejorar la coordinación entre el sensor de gas y los diferentes sistemas de alerta.
 
----
+Adaptar el programa para incorporar nuevos componentes sin afectar el funcionamiento principal del detector.
 
-## Comparación v1 vs v2
+Errores y aspectos por corregir:
 
-| Aspecto | v1 | v2 | Mejora |
-|---------|----|----|--------|
-| Sensores funcionales | 2/3 | 3/3 | ✅ |
-| Tiempo de respuesta | 500ms | 200ms | ↓60% |
-| Consumo energético | 250mA | 180mA | ↓28% |
-| Encapsulado | ❌ | Prototipo | ✅ |
-| Usuarios testeados | 0 | 2 | ✅ |
+Evaluar la compatibilidad de los nuevos componentes con el sistema existente.
 
----
+Comprobar el funcionamiento de las nuevas alertas antes de incorporarlas a la versión final.
 
-## Plan para Iteración 3 (Versión Final)
+Diseño Mecánico
 
-### Mejoras Críticas
+Durante esta etapa se comenzó a planificar el encapsulado del detector utilizando Fusion 360 como herramienta de diseño.
 
-**Hardware:**
-- [ ] [Mejora crítica 1]
-- [ ] [Mejora crítica 2]
+El objetivo era desarrollar una estructura capaz de contener y proteger los componentes electrónicos, considerando espacios para la ventilación, la visualización de la luz LED y el acceso a las conexiones necesarias.
 
-**Software:**
-- [ ] [Optimización 1]
-- [ ] [Feature faltante]
+También se evaluó la distribución interna de los componentes para facilitar su posterior montaje.
 
-**Diseño:**
-- [ ] Refinar encapsulado
-- [ ] Mejorar accesibilidad
-- [ ] Finalizar sistema de montaje
+Resultados de Testing
 
-**Testing:**
-- [ ] Testear con 5+ usuarios
-- [ ] Validar métricas ODS
-- [ ] Instalación en contexto real
+Funcionalidad Lograda
 
----
+✅ Se mantuvo como función principal la detección de fugas de gas mediante el sensor y Arduino.
 
-## Archivos en esta Carpeta
+✅ Se conservó el sistema de alerta visual mediante luz LED.
 
-- `v2_codigo.ino` - Código de esta versión
-- `v2_esquema.png` - Esquema del circuito actualizado
-- `v2_modelo3d.f3d` - Primer diseño en Fusion 360
-- `v2_fotos/` - Fotografías del prototipo
-- `v2_feedback.pdf` - Compilación de comentarios recibidos
+✅ Se identificaron nuevas funcionalidades para mejorar la seguridad del dispositivo.
+
+⚠️ El envío de SMS, la alerta sonora y la alimentación mediante baterías quedaron pendientes de implementación y evaluación en la siguiente iteración.
+
+Acciones de mejora propuestas:
+
+Evaluar la viabilidad de incorporar los nuevos sistemas de alerta.
+
+Avanzar en el desarrollo del encapsulado y la integración de los componentes electrónicos.
+
+Testing con Usuarios
+
+Durante esta etapa se consideró la importancia de evaluar la utilidad y facilidad de uso del detector.
+
+
+Feedback cualitativo:
+
+Se identificó la necesidad de que el dispositivo fuera fácil de utilizar, tuviera alertas claras y pudiera funcionar sin depender permanentemente de un computador.
+
+Problemas Pendientes
+
+1. Implementación de nuevas alertas
+
+Descripción: Se propuso incorporar un módulo SIM800L y un buzzer para complementar la alerta visual, pero todavía era necesario comprobar su funcionamiento e integración.
+
+Plan para v3: Realizar pruebas con los nuevos componentes y determinar cuáles podían incorporarse de manera confiable al sistema final.
+
+2. Dependencia de alimentación externa
+
+Descripción: El prototipo inicial dependía de una conexión al computador para recibir energía, lo que limitaba su autonomía y posibilidades de instalación.
+
+Plan para v3: Implementar una fuente de alimentación mediante baterías para permitir el funcionamiento independiente del dispositivo.
+
+3. Desarrollo del encapsulado
+
+Descripción: Era necesario diseñar una estructura que protegiera los componentes electrónicos y permitiera su correcta distribución y ventilación.
+
+Plan para v3: Avanzar en el diseño de Fusion 360 y desarrollar el encapsulado físico mediante corte láser en MDF.
+
+Plan para Iteración 3 (Versión Final)
+
+Mejoras Críticas
+
+Hardware:
+
+Realizar pruebas de funcionamiento con el módulo SIM800L.
+
+Implementar el buzzer para generar alertas sonoras.
+
+Incorporar baterías para alimentar el dispositivo.
+
+Integrar los componentes electrónicos en una estructura física.
+
+Software:
+
+Programar el funcionamiento de la alarma sonora.
+
+Evaluar el envío de notificaciones mediante SMS.
+
+Ajustar el código para asegurar el funcionamiento de los sistemas de alerta.
+
+Diseño:
+
+Finalizar el modelo del encapsulado en Fusion 360.
+
+Incorporar ventilaciones y espacios para conexiones.
+
+Fabricar las piezas utilizando corte láser en MDF.
+
+Realizar el montaje de los componentes.
+
+Testing:
+
+Comprobar el funcionamiento del sistema de detección.
+
+Evaluar el funcionamiento del buzzer.
+
+Verificar la autonomía mediante baterías.
+
+Determinar si el módulo SIM800L puede integrarse correctamente.
+
+Evaluar el funcionamiento general del prototipo final.
+
+Archivos en esta Carpeta
+
+v2_codigo.ino - Código correspondiente a la segunda versión, si se conserva.
+
+v2_esquema.png - Esquema de conexiones del prototipo.
+
+v2_modelo3d.f3d - Diseño inicial del encapsulado, si se desarrolló en esta etapa.
+
+v2_fotos/ - Fotografías de los avances realizados.
+
+v2_feedback.pdf - Comentarios recibidos durante el segundo avance, si fueron documentados.
